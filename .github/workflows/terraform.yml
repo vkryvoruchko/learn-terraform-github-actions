@@ -67,11 +67,6 @@ jobs:
               body: output
             })
 
-      - name: Check Terraform Plan Exit Code
-        if: ${{ steps.plan.outputs.exitcode == 1 }}
-        run: |
-          echo "Terraform plan returned ${{ steps.plan.outputs.exitcode }}"
-          exit ${{ steps.plan.outputs.exitcode }}
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve
